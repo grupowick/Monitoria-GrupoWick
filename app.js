@@ -1,16 +1,16 @@
 const TOKEN = "00c3c27d-b77b-4057-8fd0-f4aab2770459";
 
-let chartDias, chartServicos, chartClientes;
+let chartDias, chartServicos, chartClientes, chartStatus;
 
 async function carregar() {
 
-    const url = `https://api.movidesk.com/public/v1/tickets?token=${TOKEN}&$select=id,createdDate,status,serviceFirstLevel,clients,subject,urgency`;
+    const url = `https://api.movidesk.com/public/v1/tickets?token=${TOKEN}&$select=id,createdDate,status,serviceFirstLevel,clients`;
 
     const res = await fetch(url);
     const data = await res.json();
 
     if (!Array.isArray(data)) {
-        alert("Erro ao carregar dados");
+        alert("Erro ao carregar dados da API");
         return;
     }
 
@@ -45,30 +45,28 @@ function montarKPIs(data) {
 
 function montarGraficos(data) {
 
-    // 📊 1. Tickets por dia
     const dias = {};
-
-    // 🛠 Serviços
     const servicos = {};
-
-    // 🧑 Clientes
     const clientes = {};
+    const status = {};
 
     data.forEach(t => {
 
-        const d = new Date(t.createdDate).toISOString().split("T")[0];
-        dias[d] = (dias[d] || 0) + 1;
+        const dia = new Date(t.createdDate).toISOString().split("T")[0];
+        dias[dia] = (dias[dia] || 0) + 1;
 
         const serv = t.serviceFirstLevel?.name || "Sem serviço";
         servicos[serv] = (servicos[serv] || 0) + 1;
 
         const cli = t.clients?.[0]?.businessName || "Sem cliente";
         clientes[cli] = (clientes[cli] || 0) + 1;
+
+        const st = t.status || "Sem status";
+        status[st] = (status[st] || 0) + 1;
     });
 
-    // 📈 GRÁFICO DIAS
+    // 📈 DIAS
     if (chartDias) chartDias.destroy();
-
     chartDias = new Chart(document.getElementById("chartDias"), {
         type: "line",
         data: {
@@ -80,21 +78,20 @@ function montarGraficos(data) {
         }
     });
 
-    // 🛠 GRÁFICO SERVIÇOS
+    // 🛠 SERVIÇOS
     if (chartServicos) chartServicos.destroy();
-
     chartServicos = new Chart(document.getElementById("chartServicos"), {
         type: "bar",
         data: {
             labels: Object.keys(servicos),
             datasets: [{
-                label: "Serviços mais acionados",
+                label: "Serviços",
                 data: Object.values(servicos)
             }]
         }
     });
 
-    // 🧑 GRÁFICO CLIENTES
+    // 🧑 CLIENTES TOP 10
     if (chartClientes) chartClientes.destroy();
 
     const topClientes = Object.entries(clientes)
@@ -106,8 +103,20 @@ function montarGraficos(data) {
         data: {
             labels: topClientes.map(c => c[0]),
             datasets: [{
-                label: "Top clientes",
+                label: "Clientes",
                 data: topClientes.map(c => c[1])
+            }]
+        }
+    });
+
+    // 📌 STATUS
+    if (chartStatus) chartStatus.destroy();
+    chartStatus = new Chart(document.getElementById("chartStatus"), {
+        type: "doughnut",
+        data: {
+            labels: Object.keys(status),
+            datasets: [{
+                data: Object.values(status)
             }]
         }
     });
