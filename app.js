@@ -4,7 +4,7 @@ let chartDias, chartServicos, chartClientes;
 
 async function carregar() {
 
-    const url = `https://api.movidesk.com/public/v1/tickets?token=${TOKEN}&$select=id,createdDate,serviceFirstLevel,clients,status`;
+    const url = `https://api.movidesk.com/public/v1/tickets?token=${TOKEN}&$select=id,createdDate,status,serviceFirstLevel,clients,subject,urgency`;
 
     const res = await fetch(url);
     const data = await res.json();
