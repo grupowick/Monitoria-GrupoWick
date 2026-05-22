@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard Movidesk</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -20,31 +21,57 @@
     </button>
 
     <!-- KPIs -->
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-4 gap-4 mt-4">
 
-  <div class="bg-white p-4 rounded shadow">
-    Hoje: <b id="hoje">0</b>
-  </div>
+        <div class="bg-white p-4 rounded shadow">
+            <p>Hoje</p>
+            <h2 id="hoje" class="text-2xl font-bold">0</h2>
+        </div>
 
-  <div class="bg-white p-4 rounded shadow">
-    Ontem: <b id="ontem">0</b>
-  </div>
+        <div class="bg-white p-4 rounded shadow">
+            <p>Ontem</p>
+            <h2 id="ontem" class="text-2xl font-bold">0</h2>
+        </div>
 
-  <div class="bg-white p-4 rounded shadow">
-    Mês: <b id="mes">0</b>
-  </div>
+        <div class="bg-white p-4 rounded shadow">
+            <p>Mês</p>
+            <h2 id="mes" class="text-2xl font-bold">0</h2>
+        </div>
 
-  <div class="bg-white p-4 rounded shadow">
-    Total: <b id="total">0</b>
-  </div>
+        <div class="bg-white p-4 rounded shadow">
+            <p>Total</p>
+            <h2 id="total" class="text-2xl font-bold">0</h2>
+        </div>
 
-</div>
+    </div>
 
-    <!-- GRÁFICO -->
-    <div class="mt-6 bg-white p-4 rounded shadow">
-        <canvas id="chartDias"></canvas>
-        <canvas id="chartServicos"></canvas>
-        <canvas id="chartClientes"></canvas>
+    <!-- GRÁFICOS -->
+    <div class="grid grid-cols-2 gap-6 mt-6">
+
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="font-bold mb-2">📈 Tickets por Dia</h2>
+            <canvas id="chartDias"></canvas>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="font-bold mb-2">🛠 Serviços Mais Usados</h2>
+            <canvas id="chartServicos"></canvas>
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 mt-6">
+
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="font-bold mb-2">🧑 Top Clientes</h2>
+            <canvas id="chartClientes"></canvas>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="font-bold mb-2">📌 Status dos Tickets</h2>
+            <canvas id="chartStatus"></canvas>
+        </div>
+
     </div>
 
 </div>
