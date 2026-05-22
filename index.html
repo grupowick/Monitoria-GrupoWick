@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Movidesk</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-gray-100">
+
+<div class="p-6">
+
+    <h1 class="text-2xl font-bold mb-4">📊 Dashboard de Atendimento</h1>
+
+    <button onclick="carregar()" class="bg-green-500 text-white px-4 py-2 rounded">
+        Atualizar dados
+    </button>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-3 gap-4 mt-4">
+
+        <div class="bg-white p-4 rounded shadow">
+            <p>Hoje</p>
+            <h2 id="hoje" class="text-2xl font-bold">0</h2>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow">
+            <p>Mês</p>
+            <h2 id="mes" class="text-2xl font-bold">0</h2>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow">
+            <p>Total</p>
+            <h2 id="total" class="text-2xl font-bold">0</h2>
+        </div>
+
+    </div>
+
+    <!-- GRÁFICO -->
+    <div class="mt-6 bg-white p-4 rounded shadow">
+        <canvas id="chart"></canvas>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
