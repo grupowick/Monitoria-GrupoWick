@@ -1,5 +1,4 @@
-const TOKEN = "00c3c27d-b77b-4057-8fd0-f4aab2770459"
-"; // ⚠️ visível (limitação GitHub Pages)
+const TOKEN = "00c3c27d-b77b-4057-8fd0-f4aab2770459"; // ⚠️ visível (limitação GitHub Pages)
 
 let chart;
 
